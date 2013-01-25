@@ -17,7 +17,7 @@ void Berserker::wild(QList<void*> args)
     if(harm->type != ATTACK)
         return;
     harm->harmPoint++;
-    coder.notice("¿ñÕ½Ê¿·¢¶¯¡¾¿ñ»¯¡¿");
+    coder.notice("ç‹‚æˆ˜å£«å‘åŠ¨ã€ç‹‚åŒ–ã€‘");
 }
 
 void Berserker::tear(QList<void *> args)
@@ -27,12 +27,12 @@ void Berserker::tear(QList<void *> args)
     if(this->getGem() <= 0)
         return;
 
-    //´Ë´¦Ñ¯ÎÊÊÇ·ñÊ¹ÓÃ
-    coder.askForSkill(this->getID(),"ËºÁÑ");
+    //æ­¤å¤„è¯¢é—®æ˜¯å¦ä½¿ç”¨
+    coder.askForSkill(this->getID(),"æ’•è£‚");
     if(messageBuffer::readInfor() == 0)
         return;
 
-    coder.notice("¿ñÕ½Ê¿·¢¶¯¡¾ËºÁÑ¡¿");
+    coder.notice("ç‹‚æˆ˜å£«å‘åŠ¨ã€æ’•è£‚ã€‘");
     this->setGem(this->getGem()-1);
     Harm *harm = (Harm*)args[2];
     harm->harmPoint += 2;
@@ -49,17 +49,17 @@ void Berserker::wildBladeAsk(QList<void*> args)
     CardEntity *card = (CardEntity*)args[3];
     if(!card->getHasSpeciality())
         return;
-    if(card->getProperty() != tr("Ñª"))
+    if(card->getProperty() != tr("è¡€"))
         return;
-    if(!card->getSpecialityList().contains(tr("ÑªÓ°¿ñµ¶")))
+    if(!card->getSpecialityList().contains(tr("è¡€å½±ç‹‚åˆ€")))
         return;
     int handNum = ((PlayerEntity*)args[1])->getHandCardNum();
     if(handNum != 2 && handNum != 3)
         return;
-    coder.askForSkill(this->getID(),"ÑªÓ°¿ñµ¶");
+    coder.askForSkill(this->getID(),"è¡€å½±ç‹‚åˆ€");
     if(messageBuffer::readInfor() == 1)
         this->wildBladeUsed = true;
-    coder.notice("¿ñÕ½Ê¿·¢¶¯¡¾ÑªÓ°¿ñµ¶¡¿");
+    coder.notice("ç‹‚æˆ˜å£«å‘åŠ¨ã€è¡€å½±ç‹‚åˆ€ã€‘");
 }
 
 void Berserker::wildBlade(QList<void *> args)
@@ -71,9 +71,9 @@ void Berserker::wildBlade(QList<void *> args)
     CardEntity *card = (CardEntity*)args[3];
     if(!card->getHasSpeciality())
         return;
-    if(card->getProperty() != tr("Ñª"))
+    if(card->getProperty() != tr("è¡€"))
         return;
-    if(card->getSpecialityList().contains(tr("ÑªÓ°¿ñµ¶")))
+    if(card->getSpecialityList().contains(tr("è¡€å½±ç‹‚åˆ€")))
     {
         if(!this->wildBladeUsed)
             return;
@@ -100,18 +100,18 @@ void Berserker::roar(QList<void *> args)
     CardEntity *card = (CardEntity*)args[3];
     if(!card->getHasSpeciality())
         return;
-    if(card->getProperty() != tr("Ñª"))
+    if(card->getProperty() != tr("è¡€"))
         return;
 
-    if(card->getSpecialityList().contains(tr("ÑªĞÈÅØÏø")))
+    if(card->getSpecialityList().contains(tr("è¡€è…¥å’†å“®")))
     {
         if(((PlayerEntity*)args[1])->getCrossNum() == 2)
         {
-            //Ñ¯ÎÊÊÇ·ñ·¢¶¯
-            coder.askForSkill(this->getID(),"ÑªĞÈÅØÏø");
+            //è¯¢é—®æ˜¯å¦å‘åŠ¨
+            coder.askForSkill(this->getID(),"è¡€è…¥å’†å“®");
             if(messageBuffer::readInfor() == 0)
                 return;
-            coder.notice("¿ñÕ½Ê¿·¢¶¯¡¾ÑªĞÈÅØÏø¡¿");
+            coder.notice("ç‹‚æˆ˜å£«å‘åŠ¨ã€è¡€è…¥å’†å“®ã€‘");
             *(int*)args[5] = NOMISS;
         }
     }
@@ -141,7 +141,7 @@ void BowLady::thunderArrow(QList<void *> args)
     if(card->getElement() == tr("thunder"))
     {
         *((int*)args[5]) = NOREPLY;
-        coder.notice("¹­Ö®Å®Éñ·¢¶¯¡¾ÉÁµç¼ı¡¿");
+        coder.notice("å¼“ä¹‹å¥³ç¥å‘åŠ¨ã€é—ªç”µç®­ã€‘");
     }
 }
 
@@ -151,7 +151,7 @@ void BowLady::transfixtion(QList<void *> args)
         return;
     if(!*(bool*)args[4] || handCards.size()==0)
         return;
-    coder.askForSkill(this->getID(),"¹á´©Éä»÷");
+    coder.askForSkill(this->getID(),"è´¯ç©¿å°„å‡»");
     BatInfor ans = messageBuffer::readBatInfor();
     if(ans.reply == 0)
         return;
@@ -161,39 +161,39 @@ void BowLady::transfixtion(QList<void *> args)
         QList<CardEntity*> cards;
         cards << card;
         this->removeHandCards(cards,true);
-        coder.notice("¹­Ö®Å®Éñ·¢¶¯¡¾¹á´©Éä»÷¡¿");
+        coder.notice("å¼“ä¹‹å¥³ç¥å‘åŠ¨ã€è´¯ç©¿å°„å‡»ã€‘");
         coder.discardNotice(this->getID(),1,"y",cards);
         Harm transHurt;
         transHurt.harmPoint = 2;
         transHurt.type = MAGIC;
-        engine->timeLine3(transHurt,this,(PlayerEntity*)args[1],"¹á´©Éä»÷");
+        engine->timeLine3(transHurt,this,(PlayerEntity*)args[1],"è´¯ç©¿å°„å‡»");
     }
 }
 
 void BowLady::accurateShoot(QList<void *> args)
 {
-    //¾«×¼Éä»÷Á¬½ÓÓÚtimeLine1SIG(QList<void*>)ĞÅºÅ£¬Í¬ÑùÎÒÃÇÓ¦¸ÃÏÈ×ĞÏ¸²é¿´ĞÅºÅµÄ²ÎÊıÁĞ±í¡£
-    //Ê×ÏÈÈÔÈ»ÊÇ¼ì²éÊÇ·ñ·ûºÏ¼¼ÄÜ·¢¶¯Ìõ¼ş
+    //ç²¾å‡†å°„å‡»è¿æ¥äºtimeLine1SIG(QList<void*>)ä¿¡å·ï¼ŒåŒæ ·æˆ‘ä»¬åº”è¯¥å…ˆä»”ç»†æŸ¥çœ‹ä¿¡å·çš„å‚æ•°åˆ—è¡¨ã€‚
+    //é¦–å…ˆä»ç„¶æ˜¯æ£€æŸ¥æ˜¯å¦ç¬¦åˆæŠ€èƒ½å‘åŠ¨æ¡ä»¶
     if(this !=  (PlayerEntity*)args[0])
         return;
     CardEntity* card = (CardEntity*)args[3];
-    if(card->getProperty() != tr("¼¼"))
+    if(card->getProperty() != tr("æŠ€"))
         return;
     if(card->getHasSpeciality() == 0)
         return;
-    if(card->getSpecialityList().contains(tr("¾«×¼Éä»÷")))
+    if(card->getSpecialityList().contains(tr("ç²¾å‡†å°„å‡»")))
     {
-        //´Ë´¦Ê¹ÓÃ35ºÅÍ¨Ñ¶Ğ­ÒéÑ¯ÎÊclientÊÇ·ñ·¢¶¯¼¼ÄÜ
-        coder.askForSkill(this->getID(),"¾«×¼Éä»÷");
-        //Çë×¢Òâ,messageBuffer::readInfor()»á´Ó»º³åÖĞ¶ÁÈ¡»Ø¸´.ÕâÊÇ¸ö×èÈûº¯Êı,Ö±µ½Ëü´Ó»º³åÖĞ»ñµÃ»Ø¸´ĞÅÏ¢²Å»á·µ»Ø
+        //æ­¤å¤„ä½¿ç”¨35å·é€šè®¯åè®®è¯¢é—®clientæ˜¯å¦å‘åŠ¨æŠ€èƒ½
+        coder.askForSkill(this->getID(),"ç²¾å‡†å°„å‡»");
+        //è¯·æ³¨æ„,messageBuffer::readInfor()ä¼šä»ç¼“å†²ä¸­è¯»å–å›å¤.è¿™æ˜¯ä¸ªé˜»å¡å‡½æ•°,ç›´åˆ°å®ƒä»ç¼“å†²ä¸­è·å¾—å›å¤ä¿¡æ¯æ‰ä¼šè¿”å›
         if(1 == messageBuffer::readInfor())
         {
-            //¸ù¾İ36ºÅĞ­Òé,»Ø¸´"1"±íÊ¾Íæ¼Ò·¢¶¯´Ë¼¼ÄÜ
-            //Í¨¹ıĞÅºÅ´«µİÀ´µÄÖ¸ÕëĞŞ¸ÄÉËº¦Êı¾İ
+            //æ ¹æ®36å·åè®®,å›å¤"1"è¡¨ç¤ºç©å®¶å‘åŠ¨æ­¤æŠ€èƒ½
+            //é€šè¿‡ä¿¡å·ä¼ é€’æ¥çš„æŒ‡é’ˆä¿®æ”¹ä¼¤å®³æ•°æ®
             Harm* harm = (Harm*)args[2];
             harm->harmPoint--;
             *(int*)args[5] = NOMISS;
-            coder.notice("¹­Ö®Å®Éñ·¢¶¯¡¾¾«×¼Éä»÷¡¿");
+            coder.notice("å¼“ä¹‹å¥³ç¥å‘åŠ¨ã€ç²¾å‡†å°„å‡»ã€‘");
         }
     }
 }
@@ -205,7 +205,7 @@ void BowLady::trap(QList<void *> args)
         return;
     if(magic->infor1 != BOWLADY_TRAP)
         return;
-    coder.notice("¹­Ö®Å®Éñ·¢¶¯¡¾ÉÁ¹âÏİÚå¡¿");
+    coder.notice("å¼“ä¹‹å¥³ç¥å‘åŠ¨ã€é—ªå…‰é™·é˜±ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     PlayerEntity* dst = engine->getPlayerByID(magic->dstID);
@@ -213,7 +213,7 @@ void BowLady::trap(QList<void *> args)
     Harm harm;
     harm.harmPoint = 2;
     harm.type = MAGIC;
-    this->engine->timeLine3(harm,this,dst,"ÉÁ¹âÏİÚå");
+    this->engine->timeLine3(harm,this,dst,"é—ªå…‰é™·é˜±");
 }
 
 void BowLady::snipe(QList<void *> args)
@@ -225,7 +225,7 @@ void BowLady::snipe(QList<void *> args)
         return;
     if(this->getGem() + this->getCrystal() < 1)
         return;
-    coder.notice("¹­Ö®Å®Éñ·¢¶¯¡¾¾Ñ»÷¡¿");
+    coder.notice("å¼“ä¹‹å¥³ç¥å‘åŠ¨ã€ç‹™å‡»ã€‘");
     switch(magic->infor2)
     {
     case 0:
@@ -277,7 +277,7 @@ void MoDao::MoDanRongHe(QList<void*> args)
         return;
     if(magic->infor1 != 801 && magic->infor1 != 802)
         return;
-    coder.notice("Ä§µ¼Ê¦·¢¶¯¡¾Ä§µ¯ÈÚºÏ¡¿");
+    coder.notice("é­”å¯¼å¸ˆå‘åŠ¨ã€é­”å¼¹èåˆã€‘");
     QList<CardEntity*> cards;
     CardEntity* card;
     card=getCardByID(magic->CardID);
@@ -296,7 +296,7 @@ void MoDao::MoBaoChongJi(QList<void*> args)
     int dst1=magic->dstID;
     int dst2=magic->infor2;
     QString msg;
-    msg="Ä§µ¼Ê¦¶ÔÍæ¼Ò"+QString::number(dst1)+"ºÍÍæ¼Ò"+QString::number(dst2)+"·¢¶¯¡¾Ä§±¬³å»÷¡¿";
+    msg="é­”å¯¼å¸ˆå¯¹ç©å®¶"+QString::number(dst1)+"å’Œç©å®¶"+QString::number(dst2)+"å‘åŠ¨ã€é­”çˆ†å†²å‡»ã€‘";
     coder.notice(msg);
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
@@ -320,7 +320,7 @@ void MoDao::MoBaoChongJi(QList<void*> args)
                 Harm MoBao;
                 MoBao.harmPoint = 2;
                 MoBao.type = MAGIC;
-                engine->timeLine3(MoBao,this,ptr,"Ä§±¬³å»÷");
+                engine->timeLine3(MoBao,this,ptr,"é­”çˆ†å†²å‡»");
                 flag=true;
                 if(engine->checkEnd())
                     break;
@@ -345,7 +345,7 @@ void MoDao::MoBaoChongJi(QList<void*> args)
                 Harm MoBao;
                 MoBao.harmPoint = 2;
                 MoBao.type = MAGIC;
-                engine->timeLine3(MoBao,this,ptr,"Ä§±¬³å»÷");
+                engine->timeLine3(MoBao,this,ptr,"é­”çˆ†å†²å‡»");
                 flag=true;
                 if(engine->checkEnd())
                     break;
@@ -379,7 +379,7 @@ void MoDao::HuiMeiFengBao(QList<void*> args)
     int dst1=magic->dstID;
     int dst2=magic->infor2;
     QString msg;
-    msg="Ä§µ¼Ê¦¶ÔÍæ¼Ò"+QString::number(dst1)+"ºÍÍæ¼Ò"+QString::number(dst2)+"·¢¶¯¡¾»ÙÃğ·ç±©¡¿";
+    msg="é­”å¯¼å¸ˆå¯¹ç©å®¶"+QString::number(dst1)+"å’Œç©å®¶"+QString::number(dst2)+"å‘åŠ¨ã€æ¯ç­é£æš´ã€‘";
     coder.notice(msg);
     this->gem--;
     coder.energyNotice(this->getID(),this->getGem(),this->getCrystal());
@@ -395,7 +395,7 @@ void MoDao::HuiMeiFengBao(QList<void*> args)
             Harm HuiMie;
             HuiMie.harmPoint = 2;
             HuiMie.type = MAGIC;
-            engine->timeLine3(HuiMie,this,ptr,"»ÙÃğ·ç±©");
+            engine->timeLine3(HuiMie,this,ptr,"æ¯ç­é£æš´");
             if(engine->checkEnd())
                 break;
         }
@@ -405,7 +405,7 @@ void MoDao::HuiMeiFengBao(QList<void*> args)
             Harm HuiMie;
             HuiMie.harmPoint = 2;
             HuiMie.type = MAGIC;
-            engine->timeLine3(HuiMie,this,ptr,"»ÙÃğ·ç±©");
+            engine->timeLine3(HuiMie,this,ptr,"æ¯ç­é£æš´");
             if(engine->checkEnd())
                 break;
         }
@@ -432,7 +432,7 @@ void AnSha::ShuiYing(QList<void*> args)
     int howMany;
     if(this != ((PlayerEntity*)args[1])||handCards.size()==0)
         return;
-    coder.askForSkill(this->getID(),"Ë®Ó°");
+    coder.askForSkill(this->getID(),"æ°´å½±");
 
     QString msg=messageBuffer::readMsg();
     QStringList arg=msg.split(";");
@@ -449,7 +449,7 @@ void AnSha::ShuiYing(QList<void*> args)
             cards<<getCardByID(arg[i].toInt());
         }
         this->removeHandCards(cards,true);
-        coder.notice("°µÉ±Õß·¢¶¯¡¾Ë®Ó°¡¿");
+        coder.notice("æš—æ€è€…å‘åŠ¨ã€æ°´å½±ã€‘");
         coder.discardNotice(this->getID(),howMany,"y",cards);
     }
 }
@@ -461,20 +461,20 @@ void AnSha::QianXing(QList<void*> args)
     if(tap==1)
     {
         setTap(0);
-        coder.tapNotice(id,0,"¡¾ÆÕÍ¨ĞÎÌ¬¡¿");
+        coder.tapNotice(id,0,"ã€æ™®é€šå½¢æ€ã€‘");
         handCardsMax++;
         coder.handcardMaxNotice(id,handCardsMax);
     }
     if(getGem()==0)
         return;
-    coder.askForSkill(id,"Ç±ĞĞ");
+    coder.askForSkill(id,"æ½œè¡Œ");
     int reply=messageBuffer::readInfor();
     if(reply==0)
         return;
     this->gem--;
     coder.energyNotice(id,this->getGem(),this->getCrystal());
     setTap(1);
-    coder.tapNotice(id,1,"¡¾Ç±ĞĞĞÎÌ¬¡¿");
+    coder.tapNotice(id,1,"ã€æ½œè¡Œå½¢æ€ã€‘");
     handCardsMax--;
     coder.handcardMaxNotice(id,handCardsMax);
     setHandCardsMax(handCardsMax);
@@ -488,7 +488,7 @@ void AnSha::FanShi(QList<void*> args)
 {
     if(this != (PlayerEntity*)args[1] || ((Harm*)args[2])->type!=1)
             return;
-    coder.notice("°µÉ±Õß·¢¶¯¡¾·´ÊÉ¡¿");
+    coder.notice("æš—æ€è€…å‘åŠ¨ã€åå™¬ã€‘");
     engine->drawCards(1,0,(PlayerEntity*)args[0]);
 
 }
@@ -501,7 +501,7 @@ void AnSha::AttackCheck(QList<void*> args)
     {
         ((Harm*)args[2])->harmPoint = 2+getEnergy();
         *((int*)args[5]) = NOREPLY;
-        coder.notice("°µÉ±Õß·¢¶¯¡¾Ç±ĞĞ¡¿Ğ§¹û");
+        coder.notice("æš—æ€è€…å‘åŠ¨ã€æ½œè¡Œã€‘æ•ˆæœ");
     }
 }
 
@@ -527,7 +527,7 @@ void TianShi::FengZhiJieJin(QList<void*> args)
     BatInfor *magic = (BatInfor*)args[0];
     if(magic->srcID != id || magic->infor1 != 701)
         return;
-    coder.notice("ÌìÊ¹·¢¶¯¡¾·çÖ®½à¾»¡¿");
+    coder.notice("å¤©ä½¿å‘åŠ¨ã€é£ä¹‹æ´å‡€ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     coder.discardNotice(this->getID(),1,"y",cards);
@@ -537,7 +537,7 @@ void TianShi::FengZhiJieJin(QList<void*> args)
     CardEntity*card=getCardByID(magic->infor2);
     if(ptr->removeBasicEffect(card))
     {
-        coder.notice("ÌìÊ¹ÒÆ³ıÍæ¼Ò"+QString::number(dstID)+"ÃæÇ°µÄ"+card->getName());
+        coder.notice("å¤©ä½¿ç§»é™¤ç©å®¶"+QString::number(dstID)+"é¢å‰çš„"+card->getName());
         TianShiJiBan(id);
     }
 }
@@ -556,15 +556,15 @@ void TianShi::TianShiZhuFu(QList<void*> args)
     int dst2=-1;
 
     QString msg;
-    msg="ÌìÊ¹¶ÔÍæ¼Ò"+QString::number(dst1);
+    msg="å¤©ä½¿å¯¹ç©å®¶"+QString::number(dst1);
     if(howMany==2)
     {
         dst2=magic->infor3;
-        msg+="ºÍÍæ¼Ò"+QString::number(dst2);
+        msg+="å’Œç©å®¶"+QString::number(dst2);
         flag2=true;
         n=1;
     }
-    msg+="·¢¶¯¡¾ÌìÊ¹×£¸£¡¿";
+    msg+="å‘åŠ¨ã€å¤©ä½¿ç¥ç¦ã€‘";
     coder.notice(msg);
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
@@ -611,7 +611,7 @@ void TianShi::TianShiZhiQiang(QList<void*> args)
     BatInfor *magic = (BatInfor*)args[0];
     if(magic->srcID != id || magic->infor1 != 703)
         return;
-    coder.notice("ÌìÊ¹·¢¶¯¡¾ÌìÊ¹Ö®Ç½¡¿");
+    coder.notice("å¤©ä½¿å‘åŠ¨ã€å¤©ä½¿ä¹‹å¢™ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     PlayerEntity* dst = engine->getPlayerByID(magic->dstID);
@@ -632,7 +632,7 @@ void TianShi::TianShiZhiGe(QList<void*> args)
     }
     if(i==n)
         return;
-    coder.askForSkill(id,"ÌìÊ¹Ö®¸è");
+    coder.askForSkill(id,"å¤©ä½¿ä¹‹æ­Œ");
     BatInfor ans = messageBuffer::readBatInfor();
     if(ans.reply==0)
         return;
@@ -646,7 +646,7 @@ void TianShi::TianShiZhiGe(QList<void*> args)
     CardEntity*card=getCardByID(ans.CardID);
     if(ptr->removeBasicEffect(card))
     {
-        coder.notice("ÌìÊ¹ÒÆ³ıÍæ¼Ò"+QString::number(dstID)+"ÃæÇ°µÄ"+card->getName());
+        coder.notice("å¤©ä½¿ç§»é™¤ç©å®¶"+QString::number(dstID)+"é¢å‰çš„"+card->getName());
         TianShiJiBan(id);
     }
 }
@@ -660,7 +660,7 @@ void TianShi::ShenZhiBiHu(int harmed,int*howMany,PlayerEntity*dst)
 {
     if(harmed!=2 || dst->getColor()!=color || gem+crystal==0|| *howMany==0)
         return;
-    coder.askForSkill(id,"ÉñÖ®±Ó»¤",TOQSTR(*howMany));
+    coder.askForSkill(id,"ç¥ä¹‹åº‡æŠ¤",TOQSTR(*howMany));
     BatInfor ans = messageBuffer::readBatInfor();
     if(ans.reply == 0)
         return;
@@ -670,7 +670,7 @@ void TianShi::ShenZhiBiHu(int harmed,int*howMany,PlayerEntity*dst)
         gem-=ans.infor1;
         crystal-=ans.infor2;
         coder.energyNotice(this->getID(),gem,crystal);
-        coder.notice("ÌìÊ¹·¢¶¯¡¾ÉñÖ®±Ó»¤¡¿µÖÓù"+TOQSTR(ans.infor1+ans.infor2)+"µãÊ¿ÆøÏÂ½µ");
+        coder.notice("å¤©ä½¿å‘åŠ¨ã€ç¥ä¹‹åº‡æŠ¤ã€‘æŠµå¾¡"+TOQSTR(ans.infor1+ans.infor2)+"ç‚¹å£«æ°”ä¸‹é™");
     }
 
 }
@@ -679,11 +679,11 @@ void TianShi::TianShiJiBan(int userID)
 {
     if(userID!=id)
         return;
-    coder.askForSkill(id,"ÌìÊ¹î¿°í");
+    coder.askForSkill(id,"å¤©ä½¿ç¾ç»Š");
     BatInfor ans = messageBuffer::readBatInfor();
     int dstID=ans.dstID;
     PlayerEntity* player= engine->getPlayerByID(dstID);
-    coder.notice("ÌìÊ¹¶ÔÍæ¼Ò"+TOQSTR(dstID)+"·¢¶¯¡¾ÌìÊ¹î¿°í¡¿");
+    coder.notice("å¤©ä½¿å¯¹ç©å®¶"+TOQSTR(dstID)+"å‘åŠ¨ã€å¤©ä½¿ç¾ç»Šã€‘");
     int cross=player->getCrossNum();
     if(player->getCrossMax()>cross)
     {
@@ -691,7 +691,7 @@ void TianShi::TianShiJiBan(int userID)
         coder.crossChangeNotice(dstID,cross+1);
     }
 }
-//Ê¥Å®³õÊ¼»¯
+//åœ£å¥³åˆå§‹åŒ–
 Saintness::Saintness(BackgroundEngine *engine, int id, int color):PlayerEntity(engine,id,color)
 {
     this->characterID = 6;
@@ -699,7 +699,7 @@ Saintness::Saintness(BackgroundEngine *engine, int id, int color):PlayerEntity(e
     this->makeConnection(engine);
 }
 
-//±ùËªµ»ÑÔ
+//å†°éœœç¥·è¨€
 void Saintness::prayerOfFrost(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[0])
@@ -707,11 +707,11 @@ void Saintness::prayerOfFrost(QList<void *> args)
     CardEntity* card = (CardEntity*)args[3];
     if(card->getElement() != tr("water"))
         return;
-    coder.askForSkill(this->getID(),"±ùËªµ»ÑÔ");
+    coder.askForSkill(this->getID(),"å†°éœœç¥·è¨€");
     BatInfor ans = messageBuffer::readBatInfor();
     int dstID= ans.dstID;
     PlayerEntity* player= engine->getPlayerByID(dstID);
-    coder.notice("Ê¥Å®¶ÔÍæ¼Ò"+TOQSTR(dstID)+"·¢¶¯¡¾±ùËªµ»ÑÔ¡¿");
+    coder.notice("åœ£å¥³å¯¹ç©å®¶"+TOQSTR(dstID)+"å‘åŠ¨ã€å†°éœœç¥·è¨€ã€‘");
     int cross=player->getCrossNum();
     if(player->getCrossMax()>cross)
     {
@@ -720,7 +720,7 @@ void Saintness::prayerOfFrost(QList<void *> args)
     }
 }
 
-//ÖÎÁÆÊõ
+//æ²»ç–—æœ¯
 void Saintness::cure(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -733,7 +733,7 @@ void Saintness::cure(QList<void *> args)
     cards << getCardByID(magic->CardID);
     PlayerEntity* dst = engine->getPlayerByID(magic->dstID);
     int dstID=dst->getID();
-    coder.notice("Ê¥Å®¶ÔÍæ¼Ò"+TOQSTR(dstID)+"·¢¶¯¡¾ÖÎÁÆÊõ¡¿");
+    coder.notice("åœ£å¥³å¯¹ç©å®¶"+TOQSTR(dstID)+"å‘åŠ¨ã€æ²»ç–—æœ¯ã€‘");
     this->engine->useCard(cards,this,dst);        
     int cross = dst->getCrossNum();
     int max = dst->getCrossMax();
@@ -747,7 +747,7 @@ void Saintness::cure(QList<void *> args)
     }
 }
 
-//ÖÎÓúÖ®¹â
+//æ²»æ„ˆä¹‹å…‰
 void Saintness::healingLight(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -755,7 +755,7 @@ void Saintness::healingLight(QList<void *> args)
         return;
     if(magic->infor1 != 603)
         return;
-    coder.notice("Ê¥Å®·¢¶¯¡¾ÖÎÓúÖ®¹â¡¿");
+    coder.notice("åœ£å¥³å‘åŠ¨ã€æ²»æ„ˆä¹‹å…‰ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     PlayerEntity* player = engine->getPlayerByID(magic->dstID);
@@ -770,7 +770,7 @@ void Saintness::healingLight(QList<void *> args)
     for(int i=0;i<n; i++)
     {
         player = engine->getPlayerByID(dst[i]);
-        coder.notice("Ê¥Å®Ê¹ÓÃ¡¾ÖÎÓúÖ®¹â¡¿ÎªÍæ¼Ò"+TOQSTR(dst[i])+"Ôö¼Ó1µãÖÎÁÆ");
+        coder.notice("åœ£å¥³ä½¿ç”¨ã€æ²»æ„ˆä¹‹å…‰ã€‘ä¸ºç©å®¶"+TOQSTR(dst[i])+"å¢åŠ 1ç‚¹æ²»ç–—");
         cross=player->getCrossNum();
         if(player->getCrossMax()>cross)
         {
@@ -780,7 +780,7 @@ void Saintness::healingLight(QList<void *> args)
     }
 }
 
-//Á¯Ãõ
+//æ€œæ‚¯
 void Saintness::mercy(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[0])
@@ -789,7 +789,7 @@ void Saintness::mercy(QList<void *> args)
         return;
     if(getGem()==0)
         return;
-    coder.askForSkill(this->getID(),"Á¯Ãõ");
+    coder.askForSkill(this->getID(),"æ€œæ‚¯");
     int reply=messageBuffer::readInfor();
     if(reply==0)
         return;
@@ -799,11 +799,11 @@ void Saintness::mercy(QList<void *> args)
     handCardsMax++;
     setHandCardsMax(handCardsMax);
     setHandCardsMaxFixed(true);
-    coder.tapNotice(id,1,"¡¾Á¯ÃõĞÎÌ¬¡¿");
+    coder.tapNotice(id,1,"ã€æ€œæ‚¯å½¢æ€ã€‘");
     coder.handcardMaxNotice(id,handCardsMax);
 }
 
-//Ê¥ÁÆ
+//åœ£ç–—
 void Saintness::layOnHands(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -842,7 +842,7 @@ void Saintness::layOnHands(QList<void *> args)
         if(addcross[i] == 0)
             continue;
         player = engine->getPlayerByID(dst[i]);
-        coder.notice("Ê¥Å®Ê¹ÓÃ¡¾Ê¥ÁÆ¡¿ÎªÍæ¼Ò"+TOQSTR(dst[i])+"Ôö¼Ó"+TOQSTR(addcross[i])+"ÖÎÁÆ");
+        coder.notice("åœ£å¥³ä½¿ç”¨ã€åœ£ç–—ã€‘ä¸ºç©å®¶"+TOQSTR(dst[i])+"å¢åŠ "+TOQSTR(addcross[i])+"æ²»ç–—");
         int cross = player->getCrossNum();
         int max = player->getCrossMax();
         if (cross<max)
@@ -874,30 +874,30 @@ JianSheng::JianSheng(BackgroundEngine *engine,int id,int color):PlayerEntity(eng
     this->makeConnection(engine);
 }
 
-//ÁÒ·ç¼¼
+//çƒˆé£æŠ€
 void JianSheng::LieFengJi1(QList<void*> args)
 {
     LieFengJiUsed=false;
     if(this != (PlayerEntity*)args[0])
         return;
     CardEntity* card = (CardEntity*)args[3];
-    if(!card->getSpecialityList().contains(tr("ÁÒ·ç¼¼")))
+    if(!card->getSpecialityList().contains(tr("çƒˆé£æŠ€")))
         return;
     PlayerEntity* dst=(PlayerEntity*)args[1];
     bool flag=false;
     for(int i = 0;i < dst->getBasicEffect().size();i++)
-        if(dst->getBasicEffect().at(i)->getMagicName() == SHIELDCARD || dst->getBasicEffect().at(i)->getSpecialityList().contains(tr("ÌìÊ¹Ö®Ç½")))
+        if(dst->getBasicEffect().at(i)->getMagicName() == SHIELDCARD || dst->getBasicEffect().at(i)->getSpecialityList().contains(tr("å¤©ä½¿ä¹‹å¢™")))
         {
             flag=true;
             break;
         }
     if(!flag)
         return;
-    coder.askForSkill(id,"ÁÒ·ç¼¼");
+    coder.askForSkill(id,"çƒˆé£æŠ€");
     if(messageBuffer::readInfor() == 0)
         return;
     *((int*)args[5]) = NOREPLY;
-    coder.notice("½£Ê¥·¢¶¯¡¾ÁÒ·ç¼¼¡¿");
+    coder.notice("å‰‘åœ£å‘åŠ¨ã€çƒˆé£æŠ€ã€‘");
     LieFengJiUsed=true;
 }
 
@@ -910,19 +910,19 @@ void JianSheng::LieFengJi2(QList<void*> args)
     *((bool*)args[2]) =  false;
 }
 
-//¼²·ç¼¼
+//ç–¾é£æŠ€
 void JianSheng::JiFengJi(QList<void *> args)
 {
     PlayerEntity* myself=(PlayerEntity*)args[0];
     if(this != myself ||!*(bool*)args[4])
         return;
     CardEntity* card = (CardEntity*)args[3];
-    if(!card->getSpecialityList().contains(tr("¼²·ç¼¼")))
+    if(!card->getSpecialityList().contains(tr("ç–¾é£æŠ€")))
         return;
-    coder.notice("½£Ê¥·¢¶¯¡¾¼²·ç¼¼¡¿");
+    coder.notice("å‰‘åœ£å‘åŠ¨ã€ç–¾é£æŠ€ã€‘");
     engine->addActionNum(ATTACK);
 }
-//Á¬Ğø¼¼
+//è¿ç»­æŠ€
 void JianSheng::LianXuJi1(QList<void *> args)
 {
     if(this != ((PlayerEntity*)args[0]))
@@ -937,10 +937,10 @@ void JianSheng::LianXuJi2(QList<void *> args)
     BatInfor *skill = (BatInfor*)args[0];
     if(id != skill->srcID||skill->infor1!=101)
         return;
-    coder.notice("½£Ê¥·¢¶¯¡¾Á¬Ğø¼¼¡¿");
+    coder.notice("å‰‘åœ£å‘åŠ¨ã€è¿ç»­æŠ€ã€‘");
 }
 
-//½£Ó°
+//å‰‘å½±
 void JianSheng::JianYing1(QList<void *> args)
 {
     if(this != ((PlayerEntity*)args[0]))
@@ -959,7 +959,7 @@ void JianSheng::JianYing2(QList<void *> args)
         crystal--;
     else
         gem--;
-    coder.notice("½£Ê¥·¢¶¯¡¾½£Ó°¡¿");
+    coder.notice("å‰‘åœ£å‘åŠ¨ã€å‰‘å½±ã€‘");
     coder.energyNotice(id,gem,crystal);
 }
 
@@ -970,13 +970,13 @@ void JianSheng::skillReset(QList<void*>args){
     LianXuJiUsed=false;
     attackCount=0;
 }
-//Ê¥½£
+//åœ£å‰‘
 void JianSheng::ShengJian(QList<void *> args){
     if(this != ((PlayerEntity*)args[0])||!*(bool*)args[4])
         return;
     attackCount++;
     if(attackCount==3){
-        coder.notice("½£Ê¥·¢¶¯¡¾Ê¥½£¡¿");
+        coder.notice("å‰‘åœ£å‘åŠ¨ã€åœ£å‰‘ã€‘");
         *((int*)args[5]) = NOMISS;
     }
 }
@@ -1001,7 +1001,7 @@ FengYin::FengYin(BackgroundEngine *engine, int id, int color):PlayerEntity(engin
     this->makeConnection(engine);
     shuFuID=-1;
 }
-//·¨Êõ¼¤µ´
+//æ³•æœ¯æ¿€è¡
 void FengYin::FaShuJiDang1(QList<void *> args)
 {
     if(this != ((PlayerEntity*)args[0]))
@@ -1015,16 +1015,16 @@ void FengYin::FaShuJiDang2(QList<void *> args)
     BatInfor *skill = (BatInfor*)args[0];
     if(id != skill->srcID||skill->infor1!=404)
         return;
-    coder.notice("·âÓ¡Ê¦·¢¶¯¡¾·¨Êõ¼¤µ´¡¿");
+    coder.notice("å°å°å¸ˆå‘åŠ¨ã€æ³•æœ¯æ¿€è¡ã€‘");
 }
 
-//·âÓ¡·¨Êõ
+//å°å°æ³•æœ¯
 void FengYin::FengYinFaShu1(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
     if(magic->srcID != id || magic->infor1 != 401)
         return;
-    coder.notice("·âÓ¡Ê¦·¢¶¯¡¾·âÓ¡·¨Êõ¡¿");
+    coder.notice("å°å°å¸ˆå‘åŠ¨ã€å°å°æ³•æœ¯ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     PlayerEntity* dst = engine->getPlayerByID(magic->dstID);
@@ -1033,11 +1033,11 @@ void FengYin::FengYinFaShu1(QList<void*> args)
 void FengYin::FengYinFaShu2(QList<CardEntity*> cards,PlayerEntity* user)
 {
     foreach(CardEntity*fengYin, user->getBasicEffect())
-        if(fengYin->getType()=="attack" && fengYin->getProperty()==tr("»Ã"))
+        if(fengYin->getType()=="attack" && fengYin->getProperty()==tr("å¹»"))
             foreach(CardEntity*ptr, cards)
                 if(ptr->getElement()==fengYin->getElement())
                 {
-                    coder.notice("Íæ¼Ò"+QString::number(user->getID())+"´¥·¢"+fengYin->getSpecialityList().at(0));
+                    coder.notice("ç©å®¶"+QString::number(user->getID())+"è§¦å‘"+fengYin->getSpecialityList().at(0));
                     user->removeBasicEffect(fengYin);
                     Harm harm;
                     harm.harmPoint = 3;
@@ -1047,7 +1047,7 @@ void FengYin::FengYinFaShu2(QList<CardEntity*> cards,PlayerEntity* user)
                 }
 }
 
-//ÎåÏµÊø¸¿
+//äº”ç³»æŸç¼š
 void FengYin::WuXiShuFu1(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1058,7 +1058,7 @@ void FengYin::WuXiShuFu1(QList<void*> args)
     else
         crystal--;
     shuFuID=magic->dstID;
-    coder.notice("·âÓ¡Ê¦¶ÔÍæ¼Ò"+QString::number(shuFuID)+"·¢¶¯¡¾ÎåÏµÊø¸¿¡¿");
+    coder.notice("å°å°å¸ˆå¯¹ç©å®¶"+QString::number(shuFuID)+"å‘åŠ¨ã€äº”ç³»æŸç¼šã€‘");
     coder.energyNotice(id,gem,crystal);
     coder.specialNotice(shuFuID,0,1);
 }
@@ -1074,7 +1074,7 @@ void FengYin::WuXiShuFu2(PlayerEntity* player, bool* withoutTrap)
     for(int i=0;i<engine->getPlayerNum();i++)
     { 
         foreach(CardEntity*card,ptr->getBasicEffect())
-            if(card->getType()=="attack"&& card->getProperty()==tr("»Ã"))
+            if(card->getType()=="attack"&& card->getProperty()==tr("å¹»"))
                 howMany++;
         ptr=ptr->getNext();
     }
@@ -1094,13 +1094,13 @@ void FengYin::WuXiShuFu2(PlayerEntity* player, bool* withoutTrap)
     shuFuID=-1;
 }
 
-//·âÓ¡ÆÆËé
+//å°å°ç ´ç¢
 void FengYin::FengYinPoSui(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
     if(magic->srcID != id || magic->infor1 != 403)
         return;
-    coder.notice("·âÓ¡Ê¦·¢¶¯¡¾·âÓ¡ÆÆËé¡¿");
+    coder.notice("å°å°å¸ˆå‘åŠ¨ã€å°å°ç ´ç¢ã€‘");
     if(magic->infor2)
         gem--;
     else
@@ -1113,7 +1113,7 @@ void FengYin::FengYinPoSui(QList<void*> args)
     cards.append(card);
     if(ptr->removeBasicEffect(card,id,HAND))
     {
-        coder.notice("·âÓ¡Ê¦ÊÕ×ßÍæ¼Ò"+QString::number(dstID)+"ÃæÇ°µÄ"+card->getName());
+        coder.notice("å°å°å¸ˆæ”¶èµ°ç©å®¶"+QString::number(dstID)+"é¢å‰çš„"+card->getName());
         coder.getCardNotice(1,cards,id,true);
         addHandCards(cards,0,false);
     }
@@ -1137,19 +1137,19 @@ MoJian::MoJian(BackgroundEngine *engine,int id,int color):PlayerEntity(engine,id
     this->makeConnection(engine);
 }
 
-//ºÚ°µÕğ²ü
+//é»‘æš—éœ‡é¢¤
 void MoJian::HeiAnZhenChan1(QList<void*> args)
 {
     if(this != (PlayerEntity*)args[0]||HeiAnZhenChanUsed||gem<=0||!*(bool*)args[4])
         return;
-    coder.askForSkill(id,"ºÚ°µÕğ²ü");
+    coder.askForSkill(id,"é»‘æš—éœ‡é¢¤");
     isHeiAnZhenChan=false;
     if(messageBuffer::readInfor() == 0)
         return;
     *((int*)args[5]) = NOREPLY;
     setGem(gem-1);
     coder.energyNotice(id,gem,crystal);
-    coder.notice("Ä§½£·¢¶¯¡¾ºÚ°µÕğ²ü¡¿");
+    coder.notice("é­”å‰‘å‘åŠ¨ã€é»‘æš—éœ‡é¢¤ã€‘");
     HeiAnZhenChanUsed=true;
     isHeiAnZhenChan=true;
 }
@@ -1169,7 +1169,7 @@ void MoJian::HeiAnZhenChan3(QList<void *> args)
     isHeiAnZhenChan=false;
 }
 
-//ĞŞÂŞÁ¬Õ¶
+//ä¿®ç½—è¿æ–©
 void MoJian::XiuLuoLianZhan1(QList<void *> args)
 {
     if(this != ((PlayerEntity*)args[0]))
@@ -1185,7 +1185,7 @@ void MoJian::XiuLuoLianZhan2(QList<void *> args)
     BatInfor *skill = (BatInfor*)args[0];
     if(id != skill->srcID||skill->infor1!=901)
         return;
-    coder.notice("Ä§½£·¢¶¯¡¾ĞŞÂŞÁ¬Õ¶¡¿");
+    coder.notice("é­”å‰‘å‘åŠ¨ã€ä¿®ç½—è¿æ–©ã€‘");
 }
 
 void MoJian::skillReset(QList<void*>args){
@@ -1196,7 +1196,7 @@ void MoJian::skillReset(QList<void*>args){
     isHeiAnZhenChan=false;
 }
 
-//°µÓ°Äı¾Û
+//æš—å½±å‡èš
 void MoJian::AnYingNingJu(QList<void*> args)
 {
     if(this != (PlayerEntity*)args[0])
@@ -1204,22 +1204,22 @@ void MoJian::AnYingNingJu(QList<void*> args)
     if(tap==1)
     {
         setTap(0);
-        coder.tapNotice(id,0,"¡¾ÆÕÍ¨ĞÎÌ¬¡¿");
+        coder.tapNotice(id,0,"ã€æ™®é€šå½¢æ€ã€‘");
     }
-    coder.askForSkill(this->getID(),"°µÓ°Äı¾Û");
+    coder.askForSkill(this->getID(),"æš—å½±å‡èš");
     int reply=messageBuffer::readInfor();
     if(reply==0)
         return;
-    coder.notice("Ä§½£·¢¶¯¡¾°µÓ°Äı¾Û¡¿");
+    coder.notice("é­”å‰‘å‘åŠ¨ã€æš—å½±å‡èšã€‘");
     Harm anying;
     anying.harmPoint=1;
     anying.type=MAGICHARM;
-    engine->timeLine3(anying,this,this,"°µÓ°Äı¾Û");
+    engine->timeLine3(anying,this,this,"æš—å½±å‡èš");
     setTap(1);
-    coder.tapNotice(id,1,"¡¾°µÓ°ĞÎÌ¬¡¿");
+    coder.tapNotice(id,1,"ã€æš—å½±å½¢æ€ã€‘");
 }
 
-//°µÓ°Ö®Á¦
+//æš—å½±ä¹‹åŠ›
 void MoJian::AnYingZhiLi(QList<void*> args)
 {
     if(this != ((PlayerEntity*)args[0])||!tap)
@@ -1229,10 +1229,10 @@ void MoJian::AnYingZhiLi(QList<void*> args)
     if(harm->type != ATTACK)
         return;
     harm->harmPoint++;
-    coder.notice("Ä§½£·¢¶¯¡¾°µÓ°Ö®Á¦¡¿");
+    coder.notice("é­”å‰‘å‘åŠ¨ã€æš—å½±ä¹‹åŠ›ã€‘");
 }
 
-//°µÓ°Á÷ĞÇ
+//æš—å½±æµæ˜Ÿ
 void MoJian::AnYingLiuXing(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1240,7 +1240,7 @@ void MoJian::AnYingLiuXing(QList<void*> args)
         return;
     if(magic->infor1 != 902)
         return;
-    coder.notice("Ä§½£·¢¶¯¡¾°µÓ°Á÷ĞÇ¡¿");
+    coder.notice("é­”å‰‘å‘åŠ¨ã€æš—å½±æµæ˜Ÿã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     cards << getCardByID(magic->infor2);
@@ -1251,7 +1251,7 @@ void MoJian::AnYingLiuXing(QList<void*> args)
     Harm harm;
     harm.harmPoint = 2;
     harm.type = MAGIC;
-    this->engine->timeLine3(harm,this,dst,"°µÓ°Á÷ĞÇ");
+    this->engine->timeLine3(harm,this,dst,"æš—å½±æµæ˜Ÿ");
 }
 
 void MoJian::makeConnection(BackgroundEngine *engine)
@@ -1286,7 +1286,7 @@ void MaoXian::QiZha(QList<void *> args)
     BatInfor *skill = (BatInfor*)args[0];
     if(id != skill->srcID||skill->infor1!=1201)
         return;
-    coder.notice("Ã°ÏÕ¼Ò·¢¶¯¡¾ÆÛÕ©¡¿");
+    coder.notice("å†’é™©å®¶å‘åŠ¨ã€æ¬ºè¯ˆã€‘");
     setCrystal(crystal+1);
     coder.energyNotice(id,gem,crystal);
     QList<CardEntity*>cards;
@@ -1299,7 +1299,7 @@ void MaoXian::QiZha(QList<void *> args)
     this->removeHandCards(cards,true);
 }
 
-//ÍµÌì»»ÈÕ
+//å·å¤©æ¢æ—¥
 void MaoXian::TouTianHuanRi(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1311,7 +1311,7 @@ void MaoXian::TouTianHuanRi(QList<void *> args)
         gem--;
     else
         crystal--;
-    coder.notice("Ã°ÏÕ¼Ò·¢¶¯¡¾ÍµÌì»»ÈÕ¡¿");
+    coder.notice("å†’é™©å®¶å‘åŠ¨ã€å·å¤©æ¢æ—¥ã€‘");
     coder.energyNotice(id,gem,crystal);
     teamArea.setGem(color,teamArea.getGem(color)+1);
     coder.stoneNotice(color,teamArea.getGem(color),teamArea.getCrystal(color));
@@ -1321,7 +1321,7 @@ void MaoXian::TouTianHuanRi(QList<void *> args)
     engine->addActionNum(ATTACKORMAGIC);
 }
 
-//ÌØÊâ¼Ó¹¤
+//ç‰¹æ®ŠåŠ å·¥
 void MaoXian::TeShuJiaGong(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1333,7 +1333,7 @@ void MaoXian::TeShuJiaGong(QList<void *> args)
         gem--;
     else
         crystal--;
-    coder.notice("Ã°ÏÕ¼Ò·¢¶¯¡¾ÌØÊâ¼Ó¹¤¡¿");
+    coder.notice("å†’é™©å®¶å‘åŠ¨ã€ç‰¹æ®ŠåŠ å·¥ã€‘");
     coder.energyNotice(id,gem,crystal);
     int toChange=teamArea.getCrystal(color);
     teamArea.setCrystal(color,0);
@@ -1341,7 +1341,7 @@ void MaoXian::TeShuJiaGong(QList<void *> args)
     coder.stoneNotice(color,teamArea.getGem(color),0);
     engine->addActionNum(ATTACKORMAGIC);
 }
-//Ã°ÏÕÕßÌìÌÃ
+//å†’é™©è€…å¤©å ‚
 void MaoXian::MaoXianZheTianTang(QList<void *> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1349,7 +1349,7 @@ void MaoXian::MaoXianZheTianTang(QList<void *> args)
         return;
     if(magic->infor1 != 1204)
         return;
-    coder.notice("Ã°ÏÕ¼Ò¶ÔÍæ¼Ò"+QString::number(magic->dstID)+"·¢¶¯¡¾Ã°ÏÕÕßÌìÌÃ¡¿");
+    coder.notice("å†’é™©å®¶å¯¹ç©å®¶"+QString::number(magic->dstID)+"å‘åŠ¨ã€å†’é™©è€…å¤©å ‚ã€‘");
     PlayerEntity*dst=engine->getPlayerByID(magic->dstID);
     dst->setGem(dst->getGem()+magic->infor2);
     dst->setCrystal(dst->getCrystal()+magic->infor3);
@@ -1375,7 +1375,7 @@ void YuanSu::makeConnection(BackgroundEngine *engine)
     connect(engine,SIGNAL(timeLine3SIG(QList<void*>)),this,SLOT(YuanSuXiShou(QList<void*>)));
 }
 
-//ÔªËØÎüÊÕ
+//å…ƒç´ å¸æ”¶
 void YuanSu::YuanSuXiShou(QList<void*> args)
 {
     if(this != (PlayerEntity*)args[0] || token[0]==3)
@@ -1388,12 +1388,12 @@ void YuanSu::YuanSuXiShou(QList<void*> args)
     if(h->type==MAGICHARM)
     {
         setToken(0,token[0]+1);
-        coder.notice("ÔªËØÊ¦·¢¶¯¡¾ÔªËØÎüÊÕ¡¿");
+        coder.notice("å…ƒç´ å¸ˆå‘åŠ¨ã€å…ƒç´ å¸æ”¶ã€‘");
         coder.tokenNotice(id,0,token[0]);
     }
 }
 
-//ÔªËØ·¨Êõ
+//å…ƒç´ æ³•æœ¯
 void YuanSu::YuanSuFaShu(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1406,23 +1406,23 @@ void YuanSu::YuanSuFaShu(QList<void*> args)
     switch(magic->infor2)
     {
     case 1:
-        skill="·çÈĞ";
+        skill="é£åˆƒ";
         break;
     case 2:
-        skill="±ù¶³";
+        skill="å†°å†»";
         break;
     case 3:
-        skill="»ğÇò";
+        skill="ç«çƒ";
         harmPoint++;
         break;
     case 4:
-        skill="ÔÉÊ¯";
+        skill="é™¨çŸ³";
         break;
     case 5:
-        skill="À×»÷";
+        skill="é›·å‡»";
         break;
     }
-    coder.notice("ÔªËØÊ¦¶ÔÍæ¼Ò"+QString::number(magic->dstID)+"·¢¶¯¡¾"+skill+"¡¿");
+    coder.notice("å…ƒç´ å¸ˆå¯¹ç©å®¶"+QString::number(magic->dstID)+"å‘åŠ¨ã€"+skill+"ã€‘");
     QList<CardEntity*> cards;
     cards << getCardByID(magic->CardID);
     if(magic->infor3==2)
@@ -1454,7 +1454,7 @@ void YuanSu::YuanSuFaShu(QList<void*> args)
     }
 }
 
-//ÔªËØµãÈ¼
+//å…ƒç´ ç‚¹ç‡ƒ
 void YuanSu::YuanSuDianRan(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
@@ -1464,28 +1464,28 @@ void YuanSu::YuanSuDianRan(QList<void*> args)
     Harm harm;
     harm.harmPoint = 2;
     harm.type = MAGIC;
-    coder.notice("ÔªËØÊ¦¶ÔÍæ¼Ò"+QString::number(magic->dstID)+"·¢¶¯¡¾ÔªËØµãÈ¼¡¿");
+    coder.notice("å…ƒç´ å¸ˆå¯¹ç©å®¶"+QString::number(magic->dstID)+"å‘åŠ¨ã€å…ƒç´ ç‚¹ç‡ƒã€‘");
     setToken(0,0);
     ignite=true;
     coder.tokenNotice(id,0,0);
-    engine->timeLine3(harm,this,dst,"ÔªËØµãÈ¼");
+    engine->timeLine3(harm,this,dst,"å…ƒç´ ç‚¹ç‡ƒ");
     engine->addActionNum(MAGIC);
 }
 
-//ÔÂ¹â
+//æœˆå…‰
 void YuanSu::YueGuang(QList<void*> args)
 {
     BatInfor *magic = (BatInfor*)args[0];
     if(magic->srcID != id||magic->infor1 != 1103)
         return;
     PlayerEntity* dst = engine->getPlayerByID(magic->dstID);
-    coder.notice("ÔªËØÊ¦¶ÔÍæ¼Ò"+QString::number(magic->dstID)+"·¢¶¯¡¾ÔÂ¹â¡¿");
+    coder.notice("å…ƒç´ å¸ˆå¯¹ç©å®¶"+QString::number(magic->dstID)+"å‘åŠ¨ã€æœˆå…‰ã€‘");
     setGem(gem-1);
     coder.energyNotice(id,gem,crystal);
     Harm harm;
     harm.harmPoint = gem+crystal+1;
     harm.type = MAGIC;
-    engine->timeLine3(harm,this,dst,"ÔÂ¹â");
+    engine->timeLine3(harm,this,dst,"æœˆå…‰");
 }
 
 YongZhe::YongZhe(BackgroundEngine *engine, int id, int color):PlayerEntity(engine,id,color)
@@ -1521,7 +1521,7 @@ void YongZhe::makeConnection(BackgroundEngine *engine)
     connect(engine,SIGNAL(actionPhaseSIG(QList<void*>)),this,SLOT(JingPiLiJie2(QList<void*>)));
 }
 
-//Å­ºğÑ¯ÎÊ
+//æ€’å¼è¯¢é—®
 void YongZhe::NuHou(QList<void *> args)
 {
     if(this !=(PlayerEntity*)args[0] || this->getToken(0)== 0)
@@ -1529,16 +1529,16 @@ void YongZhe::NuHou(QList<void *> args)
     this->nuHouUsed=false;
     if(!*(bool*)args[4])
         return;
-    coder.askForSkill(this->getID(),"Å­ºğ");
+    coder.askForSkill(this->getID(),"æ€’å¼");
     if(messageBuffer::readInfor() == 0)
         return;
     setToken(0,token[0]-1);
-    coder.notice("ÓÂÕß·¢¶¯¡¾Å­ºğ¡¿");
+    coder.notice("å‹‡è€…å‘åŠ¨ã€æ€’å¼ã€‘");
     this->nuHouUsed=true;
     coder.tokenNotice(id,0,token[0]);
 }
 
-//Å­ºğÃüÖĞ
+//æ€’å¼å‘½ä¸­
 void YongZhe::NuHou1(QList<void *> args)
 {
     if(this !=(PlayerEntity*)args[0])
@@ -1549,9 +1549,10 @@ void YongZhe::NuHou1(QList<void *> args)
         return;
     Harm* harm=(Harm*)args[2];
     harm->harmPoint+=2;
+    this->nuHouUsed=false;
 }
 
-//Å­ºğÎ´ÃüÖĞ
+//æ€’å¼æœªå‘½ä¸­
 void YongZhe::NuHou2(QList<void *> args)
 {
     if(this!=(PlayerEntity*)args[0])
@@ -1565,25 +1566,26 @@ void YongZhe::NuHou2(QList<void *> args)
         setToken(1,token[1]+1);
         coder.tokenNotice(id,1,token[1]);
     }
+    this->nuHouUsed=false;
 }
 
-//Ã÷¾µÖ¹Ë®
+//æ˜é•œæ­¢æ°´
 void YongZhe::MingJingZhiShui(QList<void *> args)
 {
     if(this !=(PlayerEntity*)args[0] || this->getToken(1)<4)
         return;
     if(!*(bool*)args[4])
         return;
-    coder.askForSkill(this->getID(),"Ã÷¾µÖ¹Ë®");
+    coder.askForSkill(this->getID(),"æ˜é•œæ­¢æ°´");
     if(messageBuffer::readInfor() == 0)
         return;
     setToken(1,0);
-    coder.notice("ÓÂÕß·¢¶¯¡¾Ã÷¾µÖ¹Ë®¡¿");
+    coder.notice("å‹‡è€…å‘åŠ¨ã€æ˜é•œæ­¢æ°´ã€‘");
     coder.tokenNotice(id,1,0);
     *(int*)args[5] = NOREPLY;
 }
 
-//½û¶ÏÃüÖĞ
+//ç¦æ–­å‘½ä¸­
 void YongZhe::JinDuanZhiLi1(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[0] || this->getEnergy()==0)
@@ -1592,7 +1594,7 @@ void YongZhe::JinDuanZhiLi1(QList<void *> args)
         return;
     if(this->getHandCards().length()== 0)
         return;
-    coder.askForSkill(this->getID(),"½û¶ÏÖ®Á¦");
+    coder.askForSkill(this->getID(),"ç¦æ–­ä¹‹åŠ›");
     if(messageBuffer::readInfor() == 0)
         return;
     if(this->getCrystal()>0)
@@ -1600,7 +1602,7 @@ void YongZhe::JinDuanZhiLi1(QList<void *> args)
     else
         setGem(gem-1);
     coder.energyNotice(id,gem,crystal);
-    coder.notice("ÓÂÕß·¢¶¯¡¾½û¶ÏÖ®Á¦¡¿");
+    coder.notice("å‹‡è€…å‘åŠ¨ã€ç¦æ–­ä¹‹åŠ›ã€‘");
     jinDuanUsed=true;
     for(int i=0;i < this->getHandCards().length();i++)
     {
@@ -1621,7 +1623,7 @@ void YongZhe::JinDuanZhiLi1(QList<void *> args)
     jinduanzhili.harmPoint=fireNum;
     jinduanzhili.type=MAGICHARM;
     if(fireNum != 0){
-        engine->timeLine3(jinduanzhili,this,this,"½û¶ÏÖ®Á¦");
+        engine->timeLine3(jinduanzhili,this,this,"ç¦æ–­ä¹‹åŠ›");
         if(engine->checkEnd())
             return;
     }
@@ -1629,7 +1631,7 @@ void YongZhe::JinDuanZhiLi1(QList<void *> args)
     fireNum=0;
 }
 
-//½û¶ÏÎ´ÃüÖĞ
+//ç¦æ–­æœªå‘½ä¸­
 void YongZhe::JinDuanZhiLi2(QList<void *> args)
 {
     if(this !=(PlayerEntity*)args[0] || this->getEnergy()==0)
@@ -1638,7 +1640,7 @@ void YongZhe::JinDuanZhiLi2(QList<void *> args)
         return;
     if(this->getHandCards().length()== 0)
         return;
-    coder.askForSkill(this->getID(),"½û¶ÏÖ®Á¦");
+    coder.askForSkill(this->getID(),"ç¦æ–­ä¹‹åŠ›");
     if(messageBuffer::readInfor() == 0)
         return;
     if(this->getCrystal()>0)
@@ -1646,7 +1648,7 @@ void YongZhe::JinDuanZhiLi2(QList<void *> args)
     else
         setGem(gem-1);
     coder.energyNotice(id,gem,crystal);
-    coder.notice("ÓÂÕß·¢¶¯¡¾½û¶ÏÖ®Á¦¡¿");
+    coder.notice("å‹‡è€…å‘åŠ¨ã€ç¦æ–­ä¹‹åŠ›ã€‘");
     jinDuanUsed=true;
     for(int i=0;i < this->getHandCards().length();i++)
     {
@@ -1668,17 +1670,17 @@ void YongZhe::JinDuanZhiLi2(QList<void *> args)
     setTap(1);
 }
 
-//ËÀ¶·
+//æ­»æ–—
 void YongZhe::SiDou(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[1] || ((Harm*)args[2])->type != MAGICHARM || this->getGem()==0)
         return;
-    coder.askForSkill(this->getID(),"ËÀ¶·");
+    coder.askForSkill(this->getID(),"æ­»æ–—");
     if(messageBuffer::readInfor() == 0)
         return;
     setGem(gem-1);
     coder.energyNotice(this->getID(),gem,crystal);
-    coder.notice("ÓÂÕß·¢¶¯¡¾ËÀ¶·¡¿");
+    coder.notice("å‹‡è€…å‘åŠ¨ã€æ­»æ–—ã€‘");
     if(token[0]+3<=4)
         setToken(0,token[0]+3);
     else
@@ -1686,7 +1688,7 @@ void YongZhe::SiDou(QList<void *> args)
     coder.tokenNotice(id,0,token[0]);
 }
 
-//ÌôĞÆ·ÅÖÃ
+//æŒ‘è¡…æ”¾ç½®
 void YongZhe::TiaoXin1(QList<void *> args)
 {
     BatInfor* magic= (BatInfor*)args[0];
@@ -1699,12 +1701,12 @@ void YongZhe::TiaoXin1(QList<void *> args)
     tiaoXinID=magic->dstID;
     coder.tokenNotice(id,0,token[0]);
     coder.tokenNotice(id,1,token[1]);
-    coder.notice("ÓÂÕß¶ÔÍæ¼Ò"+QString::number(tiaoXinID)+"·¢¶¯¡¾ÌôĞÆ¡¿");
+    coder.notice("å‹‡è€…å¯¹ç©å®¶"+QString::number(tiaoXinID)+"å‘åŠ¨ã€æŒ‘è¡…ã€‘");
     coder.specialNotice(tiaoXinID,1,1);
     tiaoXinUsed=true;
 }
 
-//ÌôĞÆ´¥·¢ÅĞ¶¨1
+//æŒ‘è¡…è§¦å‘åˆ¤å®š1
 void YongZhe::TiaoXin2(PlayerEntity *player, int *act)
 {
     if(player->getID() != tiaoXinID)
@@ -1715,7 +1717,7 @@ void YongZhe::TiaoXin2(PlayerEntity *player, int *act)
     tiaoXinChuFa=true;
 }
 
-//ÌôĞÆÒÆ³ı
+//æŒ‘è¡…ç§»é™¤
 void YongZhe::TiaoXin3(PlayerEntity *player)
 {
     if(player->getID() != tiaoXinID)
@@ -1729,7 +1731,7 @@ void YongZhe::TiaoXin3(PlayerEntity *player)
     tiaoXinUsed=false;
 }
 
-/*ÌôĞÆÒÆ³ı
+/*æŒ‘è¡…ç§»é™¤
 void YongZhe::TiaoXin4(QList<void *> args)
 {
     if(this->getID() != tiaoXinID)
@@ -1744,7 +1746,7 @@ void YongZhe::TiaoXin4(QList<void *> args)
     tiaoXinChuFa=false;
 }*/
 
-//¾«Æ£Á¦½ß´¥·¢
+//ç²¾ç–²åŠ›ç«­è§¦å‘
 void YongZhe::JingPiLiJie1(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[0])
@@ -1752,7 +1754,7 @@ void YongZhe::JingPiLiJie1(QList<void *> args)
     if(this->tap != 1)
         return;
     if(jinDuanUsed){
-    coder.tapNotice(this->getID(),1,"¡¾¾«Æ£Á¦½ß¡¿");
+    coder.tapNotice(this->getID(),1,"ã€ç²¾ç–²åŠ›ç«­ã€‘");
     this->setHandCardsMax(4);
     coder.handcardMaxNotice(id,4);
     this->setHandCardsMaxFixed(true);
@@ -1761,7 +1763,7 @@ void YongZhe::JingPiLiJie1(QList<void *> args)
     }
 }
 
-//¾«Æ£Á¦½ß½áËã
+//ç²¾ç–²åŠ›ç«­ç»“ç®—
 void YongZhe::JingPiLiJie2(QList<void *> args)
 {
     if(this != (PlayerEntity*)args[0])
@@ -1769,14 +1771,14 @@ void YongZhe::JingPiLiJie2(QList<void *> args)
     if(this->tap != 1)
         return;
     setTap(0);
-    coder.tapNotice(this->getID(),0,"¡¾ÆÕÍ¨ĞÎÌ¬¡¿");
+    coder.tapNotice(this->getID(),0,"ã€æ™®é€šå½¢æ€ã€‘");
     this->setHandCardsMaxFixed(false);
     this->setHandCardsMax(6);
     coder.handcardMaxNotice(id,6);
     Harm jingpilijie;
     jingpilijie.harmPoint=3;
     jingpilijie.type=MAGICHARM;
-    engine->timeLine3(jingpilijie,this,this,"¾«Æ£Á¦½ß");
+    engine->timeLine3(jingpilijie,this,this,"ç²¾ç–²åŠ›ç«­");
     if(engine->checkEnd())
         return;
 }
